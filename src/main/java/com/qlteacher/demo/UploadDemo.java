@@ -49,7 +49,7 @@ public class UploadDemo {
 		oi.setTitle("上课实录");
 		oi.setType(1);
 		
-//		list.add(oi);
+		list.add(oi);
 
 		OtoUploadHkItemVO oi2 = new OtoUploadHkItemVO();
 		oi2.setContent("http://课件设计.rar");
