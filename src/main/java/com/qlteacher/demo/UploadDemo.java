@@ -75,7 +75,7 @@ public class UploadDemo {
 		OAuthClientRequest bearerClientRequest;
 		try {
 			bearerClientRequest = new OAuthBearerClientRequest(
-					"http://api.qlteacher.com/oauth2/otoel/upload").setAccessToken(AccessTokenDemo.getAccessToken())
+					"https://api.qlteacher.com/oauth2/otoel/upload").setAccessToken(AccessTokenDemo.getAccessToken())
 							.buildHeaderMessage();
 			
 			bearerClientRequest.setHeader("Content-Type", "application/json");
