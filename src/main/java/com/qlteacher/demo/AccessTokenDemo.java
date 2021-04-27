@@ -14,7 +14,7 @@ public class AccessTokenDemo {
 	public static String getAccessToken() throws OAuthSystemException, OAuthProblemException {
 		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
 		OAuthClientRequest request = OAuthClientRequest
-				.tokenLocation("http://id.qlteacher.com/api/auth/token?grant_type=password")
+				.tokenLocation("https://id.qlteacher.com/api/auth/token?grant_type=password")
 				.setGrantType(GrantType.PASSWORD).setClientId(Constant.clientId)
 				.setClientSecret(Constant.cientSecret).setUsername(Constant.userName)
 				.setPassword(Constant.password).buildBodyMessage();
