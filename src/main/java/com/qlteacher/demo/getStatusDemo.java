@@ -43,7 +43,7 @@ public class getStatusDemo {
 
 		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
 		OAuthClientRequest bearerClientRequest = new OAuthBearerClientRequest(
-				"http://api.qlteacher.com/oauth2/otoel/" + tailUrl)
+				"https://api.qlteacher.com/oauth2/otoel/" + tailUrl)
 				.setAccessToken(AccessTokenDemo.getAccessToken())
 				.buildHeaderMessage();
 
