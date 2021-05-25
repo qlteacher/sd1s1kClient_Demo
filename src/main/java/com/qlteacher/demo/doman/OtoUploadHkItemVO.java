@@ -1,5 +1,6 @@
 package com.qlteacher.demo.doman;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
@@ -8,7 +9,7 @@ import lombok.Data;
 public class OtoUploadHkItemVO {
 
 	private String id;
-	
+
 	/**
      * 创建时间
      */
@@ -35,6 +36,6 @@ public class OtoUploadHkItemVO {
 	private String fileName;
 
 	/** @Fields type : 类型 */
-	private int type;
+//	private int type;
 
 }

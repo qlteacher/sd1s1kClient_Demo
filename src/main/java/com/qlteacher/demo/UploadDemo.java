@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.qlteacher.demo.doman.Constant;
 import org.apache.oltu.oauth2.client.OAuthClient;
 import org.apache.oltu.oauth2.client.URLConnectionClient;
 import org.apache.oltu.oauth2.client.request.OAuthBearerClientRequest;
@@ -20,75 +21,130 @@ import com.qlteacher.demo.doman.OtoUploadHkItemVO;
 
 public class UploadDemo {
 
-	public static void main(String[] args) throws JsonProcessingException{
-		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
-		
-		OtoUploadHkInfoVO vo = new OtoUploadHkInfoVO();
-		vo.setAuthorIdCard("身份证号");
-		vo.setCourseId("31_549bdac796930d5bdd5fdb58");
-		vo.setCreatedTime(new Date());
-		vo.setCreateTime(new Date());
-		vo.setDelete(false);
-		vo.setHkAppraisedConfId(Constant.projectId);
-		vo.setHkPartConfId(Constant.partConf);
-		vo.setLastUpdatetime(new Date());
-		vo.setPrizeLevel(2);
-		vo.setThumbnailUrl("http://封面.jpg");
-		vo.setTitle("测试接口");
-		vo.setUpdatedTime(new Date());
-		vo.setLastUpdatetime(new Date());
-		vo.setId("233");
-		
-		
-		List<OtoUploadHkItemVO> list = new ArrayList<OtoUploadHkItemVO>();
-		OtoUploadHkItemVO oi = new OtoUploadHkItemVO();
-		oi.setContent("http://上课实录.mp4");
-		oi.setFileName("上课实录.mp4");
-		oi.setIndex(1);
-		oi.setStep(1);
-		oi.setTitle("上课实录");
-		oi.setType(1);
-		
-		list.add(oi);
+    public static void main(String[] args) {
 
-		OtoUploadHkItemVO oi2 = new OtoUploadHkItemVO();
-		oi2.setContent("http://课件设计.rar");
-		oi2.setFileName("课件设计.rar");
-		oi2.setIndex(1);
-		oi2.setStep(2);
-		oi2.setTitle("课件设计");
-		oi2.setType(6);
-		list.add(oi2);
+        // 上传作品
+        uploadHkInfo();
 
-		vo.setContentItems(list);
-		
-		OtoUploadHkInfoVO[] a = new OtoUploadHkInfoVO[1];
-		a[0]=vo;
-		
-		ObjectMapper mapper = new ObjectMapper();
-		
-		String json = mapper.writeValueAsString(a);
+        // 删除作品
+//        deleteHkInfo();
+    }
 
-		System.out.println(json);
-		
+    /**
+     * 删除作品必须的属性
+     */
+    private static void deleteHkInfo() {
 
-		OAuthClientRequest bearerClientRequest;
-		try {
-			bearerClientRequest = new OAuthBearerClientRequest(
-					"https://api.qlteacher.com/oauth2/otoel/upload").setAccessToken(AccessTokenDemo.getAccessToken())
-							.buildHeaderMessage();
-			
-			bearerClientRequest.setHeader("Content-Type", "application/json");
-			bearerClientRequest.setBody(json);
-			
-			OAuthResourceResponse resourceResponse = oAuthClient.resource(bearerClientRequest, OAuth.HttpMethod.POST,
-					OAuthResourceResponse.class);
+        // 作品对象
+        OtoUploadHkInfoVO vo = new OtoUploadHkInfoVO();
+        // 唯一标识
+        vo.setId("001");
+        // 作者身份证号
+        vo.setAuthorIdCard("");
+        // 作者姓名
+        vo.setAuthorName("");
+        // 删除标志位
+        vo.setDelete(true);
+        // 年度
+        vo.setHkAppraisedConfId(Constant.PROJECT_ID);
 
-			System.out.println(resourceResponse.getBody());
-		} catch (OAuthSystemException | OAuthProblemException e) {
-			//这里如果后台返回异常 通过oltu包是读不到异常信息的,请自行打断点看 URLConnectionClient的httpURLConnection.getErrorStream()
-			e.printStackTrace();
-		}
+        OtoUploadHkInfoVO[] hkList = new OtoUploadHkInfoVO[1];
+        hkList[0] = vo;
 
-	}
+        callUploadHkInfo(hkList);
+    }
+
+    private static void uploadHkInfo() {
+
+        // 作品对象
+        OtoUploadHkInfoVO vo = new OtoUploadHkInfoVO();
+        // 唯一标识
+        vo.setId("001");
+        // 标题
+        vo.setTitle("测试作品001");
+        // 作者身份证号
+        vo.setAuthorIdCard("");
+        // 作者姓名
+        vo.setAuthorName("");
+        // 课程id，通过接口获得
+        vo.setCourseId("31_549bdac796930d5bdd5fdb58");
+        // 删除标志位
+        vo.setDelete(false);
+        // 年度
+        vo.setHkAppraisedConfId(Constant.PROJECT_ID);
+        // 学段
+        vo.setHkPartConfId(Constant.PART_CONF);
+        // 排名
+        vo.setRanking(2);
+        // 缩略图
+        vo.setThumbnailUrl("http://封面.jpg");
+
+        // 作品项列表
+        List<OtoUploadHkItemVO> list = new ArrayList<>();
+        OtoUploadHkItemVO oi = new OtoUploadHkItemVO();
+        // 步骤 小学初中高中1~10,幼儿园1~7
+        oi.setStep(1);
+        // 步骤内排序
+        oi.setIndex(1);
+        // 标题
+        oi.setTitle("上课实录");
+        // 下载地址
+        oi.setContent("http://上课实录.mp4");
+        // 文件名、带扩展名
+        oi.setFileName("上课实录.mp4");
+        list.add(oi);
+
+        OtoUploadHkItemVO oi2 = new OtoUploadHkItemVO();
+        oi2.setStep(2);
+        oi2.setIndex(1);
+        oi2.setTitle("课件设计");
+        oi2.setContent("http://课件设计.rar");
+        oi2.setFileName("课件设计.rar");
+        list.add(oi2);
+
+        vo.setContentItems(list);
+
+        OtoUploadHkInfoVO[] hkList = new OtoUploadHkInfoVO[1];
+        hkList[0] = vo;
+
+        callUploadHkInfo(hkList);
+    }
+
+
+    public static void callUploadHkInfo(OtoUploadHkInfoVO[] hklist) {
+
+        OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(hklist);
+        } catch (JsonProcessingException jpe) {
+            jpe.printStackTrace();
+        }
+
+        // 打印输出json
+        System.out.println(json);
+
+        OAuthClientRequest bearerClientRequest;
+        try {
+            bearerClientRequest = new OAuthBearerClientRequest(
+                    Constant.BASE_URL + "upload").setAccessToken(AccessTokenDemo.getAccessToken())
+                    .buildHeaderMessage();
+
+            bearerClientRequest.setHeader("Content-Type", "application/json");
+            bearerClientRequest.setBody(json);
+
+            OAuthResourceResponse resourceResponse = oAuthClient.resource(bearerClientRequest, OAuth.HttpMethod.POST,
+                    OAuthResourceResponse.class);
+
+            System.out.println(resourceResponse.getBody());
+
+        } catch (OAuthSystemException | OAuthProblemException e) {
+
+            // 这里如果后台返回异常 通过oltu包是读不到异常信息的,请自行打断点看 URLConnectionClient的httpURLConnection.getErrorStream()
+            e.printStackTrace();
+        }
+    }
 }
