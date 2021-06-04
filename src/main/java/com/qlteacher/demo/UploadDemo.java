@@ -31,7 +31,7 @@ public class UploadDemo {
     }
 
     /**
-     * 删除作品必须的属性
+     * 删除作品，所列属性都是必填的
      */
     private static void deleteHkInfo() {
 
@@ -40,9 +40,9 @@ public class UploadDemo {
         // 唯一标识
         vo.setId("001");
         // 作者身份证号
-        vo.setAuthorIdCard("");
+        vo.setAuthorIdCard("作者身份证号");
         // 作者姓名
-        vo.setAuthorName("");
+        vo.setAuthorName("作者姓名");
         // 删除标志位
         vo.setDelete(true);
         // 年度
@@ -54,6 +54,9 @@ public class UploadDemo {
         callUploadHkInfo(hkList);
     }
 
+    /**
+      * 上传作品，所列属性都是必填的
+      */
     private static void uploadHkInfo() {
 
         // 作品对象
@@ -63,9 +66,9 @@ public class UploadDemo {
         // 标题
         vo.setTitle("测试作品001");
         // 作者身份证号
-        vo.setAuthorIdCard("");
+        vo.setAuthorIdCard("作者身份证号");
         // 作者姓名
-        vo.setAuthorName("");
+        vo.setAuthorName("作者姓名");
         // 课程id，通过接口获得
         vo.setCourseId("31_549bdac796930d5bdd5fdb58");
         // 删除标志位
