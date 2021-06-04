@@ -44,7 +44,9 @@ public class UploadDemo {
         // 作者姓名
         vo.setAuthorName("作者姓名");
         // 删除标志位
-        vo.setDelete(true);
+        vo.setDelete(true);        
+        // 排名
+        vo.setRanking(2);
         // 年度
         vo.setHkAppraisedConfId(Constant.PROJECT_ID);
 
